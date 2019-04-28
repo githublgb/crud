@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: localhostconsumerbootweb
+
+eureka:
+  client:
+    register-with-eureka: false  #false不发布到eureka的服务上，只是服务消费者,true 注册到eureka上
+    service-url:
+      defaultZone: http://118.24.229.84:8761/eureka/,http://47.112.124.205:8761/eureka/,http://120.79.74.127:8761/eureka/
+
+  instance:
+    prefer-ip-address: true   #把ip注册到服务中心，如果没有设置，会把服务器的计算机名注册eureka注册中心
+    #ip-address: 47.112.124.205   #指定ip ,我自己是docker部署，不指定的时候，会把容器的ip注册到eureka上，不知道如何解决?
+
+server:
+  port: 8020
+
+#开启feign对hystrix的支持
+feign:
+  hystrix:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
