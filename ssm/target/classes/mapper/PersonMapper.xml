@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.com.lgb.domain.Person0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lgb.domain.Person">
+    <resultMap id="BaseResultMap" type="com.lgb.domain.Person">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="hobby" jdbcType="VARCHAR" property="hobby"/>
+        <result column="profession" jdbcType="VARCHAR" property="profession"/>
+        <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, name, sex, age, address, hobby, profession, phoneNumber
+  </sql>
+
+    <select id="queryPersonById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="queryPersonByPage" parameterType="com.lgb.domain.Person"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person
+
+        where 1=1
+
+        <if test="name != null and name != ''" >
+             and name =  #{name}
+        </if>
+
+        <if test="phoneNumber != null  and phoneNumber  != ''" >
+            and phoneNumber =  #{phoneNumber}
+        </if>
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+    delete from person
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="insert" parameterType="com.lgb.domain.Person">
+    insert into person (id, name, sex,
+      age, address, hobby,
+      profession,phoneNumber)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+      #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR},
+      #{profession,jdbcType=VARCHAR} ,#{phoneNumber,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.lgb.domain.Person">
+        insert into person
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="hobby != null">
+                hobby,
+            </if>
+            <if test="profession != null">
+                profession,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null">
+                #{profession,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatePersonById" parameterType="com.lgb.domain.Person">
+        update person
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                hobby = #{hobby,jdbcType=VARCHAR},
+            </if>
+
+            <if test="phoneNumber != null">
+                phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="profession != null">
+                profession = #{profession,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.lgb.domain.Person">
+    update person
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

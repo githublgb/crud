@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		         http://www.springframework.org/schema/beans/spring-beans.xsd
+		         http://www.springframework.org/schema/context
+	             http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 定义producer的参数 -->
+    <bean id="producerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+               <!-- 英文冒号，写成中文，困扰很久，奶奶的-->
+                <entry key="bootstrap.servers" value="118.24.229.84:9092"/>
+                <entry key="group.id" value="0"/>
+                <entry key="retries" value="1"/>
+                <entry key="batch.size" value="16384"/>
+                <entry key="linger.ms" value="1"/>
+                <entry key="buffer.memory" value="33554432"/>
+
+                <!--消息是kv形式发送到kafka服务，发送之前需要序列化成二级制类型，此配置k的序列化类型StringSerializer-->
+                <entry key="key.serializer" value="org.apache.kafka.common.serialization.StringSerializer"/>
+                <entry key="value.serializer"  value="org.apache.kafka.common.serialization.StringSerializer"/>
+
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 创建kafkatemplate需要使用的producerfactory bean -->
+    <bean id="producerFactory"
+          class="org.springframework.kafka.core.DefaultKafkaProducerFactory">
+        <constructor-arg>
+            <ref bean="producerProperties"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 创建kafkatemplate bean，使用的时候，只需要注入这个bean，即可使用template的send消息方法 -->
+    <bean id="kafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
+        <constructor-arg ref="producerFactory"/>
+        <constructor-arg name="autoFlush" value="true"/>
+        <!--配置消费发送的监听类，自己定义类实现监听的接口ProducerListener-->
+        <property name="producerListener" ref="myProducerListener"/>
+    </bean>
+
+    <!--自己的实现类型实现Producer ,处理消息发送的不同结果-->
+    <bean id="myProducerListener" class="com.lgb.kafka.KafkaProducerListenerImpl"/>
+
+    <import resource="kafka-consumer.xml" />
+
+</beans>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generatorMapper.ChildMotherAcountMapper">
+  <resultMap id="BaseResultMap" type="generatorDoman.ChildMotherAcount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="account_key" jdbcType="VARCHAR" property="accountKey" />
+    <result column="office_code" jdbcType="VARCHAR" property="officeCode" />
+    <result column="receive_status" jdbcType="INTEGER" property="receiveStatus" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_by_name" jdbcType="VARCHAR" property="createByName" />
+    <result column="create_by_time" jdbcType="TIMESTAMP" property="createByTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_by_name" jdbcType="VARCHAR" property="updateByName" />
+    <result column="update_by_time" jdbcType="TIMESTAMP" property="updateByTime" />
+    <result column="data_version" jdbcType="INTEGER" property="dataVersion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_no, account_key, office_code, receive_status, status, create_by, create_by_name, 
+    create_by_time, update_by, update_by_name, update_by_time, data_version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="generatorDoman.ChildMotherAcount">
+    insert into user (id, account_no, account_key, 
+      office_code, receive_status, status, 
+      create_by, create_by_name, create_by_time, 
+      update_by, update_by_name, update_by_time, 
+      data_version)
+    values (#{id,jdbcType=BIGINT}, #{accountNo,jdbcType=VARCHAR}, #{accountKey,jdbcType=VARCHAR}, 
+      #{officeCode,jdbcType=VARCHAR}, #{receiveStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=VARCHAR}, #{createByName,jdbcType=VARCHAR}, #{createByTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateByName,jdbcType=VARCHAR}, #{updateByTime,jdbcType=TIMESTAMP}, 
+      #{dataVersion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="generatorDoman.ChildMotherAcount">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="accountKey != null">
+        account_key,
+      </if>
+      <if test="officeCode != null">
+        office_code,
+      </if>
+      <if test="receiveStatus != null">
+        receive_status,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createByName != null">
+        create_by_name,
+      </if>
+      <if test="createByTime != null">
+        create_by_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateByName != null">
+        update_by_name,
+      </if>
+      <if test="updateByTime != null">
+        update_by_time,
+      </if>
+      <if test="dataVersion != null">
+        data_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountKey != null">
+        #{accountKey,jdbcType=VARCHAR},
+      </if>
+      <if test="officeCode != null">
+        #{officeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveStatus != null">
+        #{receiveStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createByName != null">
+        #{createByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createByTime != null">
+        #{createByTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByName != null">
+        #{updateByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByTime != null">
+        #{updateByTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null">
+        #{dataVersion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generatorDoman.ChildMotherAcount">
+    update user
+    <set>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountKey != null">
+        account_key = #{accountKey,jdbcType=VARCHAR},
+      </if>
+      <if test="officeCode != null">
+        office_code = #{officeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveStatus != null">
+        receive_status = #{receiveStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createByName != null">
+        create_by_name = #{createByName,jdbcType=VARCHAR},
+      </if>
+      <if test="createByTime != null">
+        create_by_time = #{createByTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByName != null">
+        update_by_name = #{updateByName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateByTime != null">
+        update_by_time = #{updateByTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataVersion != null">
+        data_version = #{dataVersion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generatorDoman.ChildMotherAcount">
+    update user
+    set account_no = #{accountNo,jdbcType=VARCHAR},
+      account_key = #{accountKey,jdbcType=VARCHAR},
+      office_code = #{officeCode,jdbcType=VARCHAR},
+      receive_status = #{receiveStatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_by_name = #{createByName,jdbcType=VARCHAR},
+      create_by_time = #{createByTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_by_name = #{updateByName,jdbcType=VARCHAR},
+      update_by_time = #{updateByTime,jdbcType=TIMESTAMP},
+      data_version = #{dataVersion,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

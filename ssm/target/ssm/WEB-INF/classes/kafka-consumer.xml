@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		     http://www.springframework.org/schema/tx
+		      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		      http://www.springframework.org/schema/jee
+		      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		      http://www.springframework.org/schema/context
+		      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+    <!-- 定义consumer的参数 -->
+    <bean id="consumerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="bootstrap.servers" value="118.24.229.84:9092"/>
+                <entry key="group.id" value="0"/>
+                <entry key="enable.auto.commit" value="false"/> <!--consumer是否自动提交offest到zookeeper-->
+                <entry key="auto.commit.interval.ms" value="1000"/> <!--自动提交的时间间隔-->
+                <entry key="session.timeout.ms" value="15000"/>
+                <!--消息是kv形式发送到kafka服务，发送之前需要序列化成二级制类型，消费时反序列化出来，此配置k的序列化类型StringDeserializer-->
+                <entry key="key.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+                <entry key="value.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 创建consumerFactory bean -->
+    <bean id="consumerFactory" class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+        <constructor-arg>
+            <ref bean="consumerProperties"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 实际执行消息消费的类,类实现于kafka自身的消息监听接口   -->
+    <bean id="messageListernerConsumerService" class="com.lgb.kafka.KafkaConsumerServerImpl"/>
+
+
+    <!-- 消费者容器配置信息 -->
+    <bean id="containerProperties_example" class="org.springframework.kafka.listener.config.ContainerProperties">
+        <constructor-arg value="test"/>
+        <property name="messageListener" ref="messageListernerConsumerService"/>
+    </bean>
+
+    <!-- 消费者并发消息监听容器，执行doStart()方法 -->
+    <!-- consumerFactory+containerProperties -> messageListenerContainer 容器配置（topics）+ 消息监听器，构造一个并发消息监听容器，并执行初始化方法doStart -->
+    <bean id="messageListenerContainer_example" class="org.springframework.kafka.listener.KafkaMessageListenerContainer"
+          init-method="doStart">
+        <constructor-arg ref="consumerFactory"/>
+        <constructor-arg ref="containerProperties_example"/>
+    </bean>
+
+
+</beans>
