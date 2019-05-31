@@ -1,0 +1,77 @@
+
+spring:
+  application:
+    name: bootweb #注册服务的名称
+  aop:
+    proxy-target-class: true # 默认cglib
+    auto: true  #开启aop
+
+  datasource:
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.79.74.127:3306/bootweb?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 25
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+
+  #freemark模板配置
+  freemarker:
+    template-loader-path: classpath:/templates
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html; charset=utf-8
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    suffix: .html
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/static/,classpath:/static/,classpath:/public
+
+eureka:
+  client:
+    service-url:
+      defaultZone: #http://47.112.124.205:8761/eureka/
+    register-with-eureka: false  #不注册到服务中心
+  instance:
+    prefer-ip-address: true    #将自己的ip注册到eureka服务上 左下角显示ip
+    #ip-address: 47.112.124.205    # 指定ip,docker  启动注册时拿的是容器的ip ,还不知道如何解决
+
+#mapper文件路径配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#日志配置
+logging:
+  config: classpath:springConfig/logback.xml
+
+
+## INFO
+info:
+  app:
+    name: @project.artifactId@
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @java.version@
+      target: @java.version@
+server:
+  port: 8081
+
+#关闭boot的redis监控
+management:
+  health:
+    redis:
+      enabled: false
