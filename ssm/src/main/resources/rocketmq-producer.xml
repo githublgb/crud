@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		         http://www.springframework.org/schema/beans/spring-beans.xsd
+		         http://www.springframework.org/schema/context
+	             http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <!-- 创建kafkatemplate bean，使用的时候，只需要注入这个bean，即可使用template的send消息方法 -->
+    <bean id="springProducer" class="com.lgb.rocketmq.SpringProducer" init-method="init" destroy-method="destroy">
+        <constructor-arg name="nameServerAddr" value="118.24.229.84:9876"/>
+        <constructor-arg name="producerGroupName" value="spirng_producer_group"/>
+
+    </bean>
+
+
+
+</beans>
