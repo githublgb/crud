@@ -10,8 +10,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import java.util.Map;
 
 public class KafkaProducerTest {
-    String _naem ="sss";
-
 
     public static void main(String[] args) {
 
@@ -21,7 +19,7 @@ public class KafkaProducerTest {
         ApplicationContext c = new AnnotationConfigApplicationContext();
         KafkaTemplate kafkaTemplate = (KafkaTemplate)cxt.getBean("kafkaTemplate");
 
-        for (int i = 0; i <20 ; i++) {
+        for (int i = 0; i <3 ; i++) {
             kafkaTemplate.send("test","kafka发送的数据"+i);
         }
 

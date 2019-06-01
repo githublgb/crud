@@ -24,7 +24,7 @@ public class SpringConsumerTest {
 
         SpringConsumer consumer = (SpringConsumer) context.getBean("springConsumer");
 
-        Thread.sleep(300 * 1000);
-        consumer.destroy();
+        //Thread.sleep(300 * 1000);
+        //consumer.destroy();
     }
 }

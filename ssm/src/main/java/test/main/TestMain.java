@@ -13,7 +13,8 @@ public class TestMain {
 
     public static void main(String[] args) {
         //list的toString 和数组的toString person重写了toString方法
-        testListToString();
+       // testListToString();
+        testNull();
     }
 
     public static void testListToString() {
@@ -29,6 +30,14 @@ public class TestMain {
         System.out.println(personList.toString());
         System.out.println(Arrays.toString(a));
         System.out.println(Arrays.toString(p));
+    }
+
+
+    public static void testNull(){
+        Person p = new Person();
+
+        System.out.println((p.getBri()==null));
+
     }
 
 }

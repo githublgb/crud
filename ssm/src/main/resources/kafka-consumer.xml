@@ -16,11 +16,12 @@
     <bean id="consumerProperties" class="java.util.HashMap">
         <constructor-arg>
             <map>
-                <entry key="bootstrap.servers" value="118.24.229.84:9092"/>
+                <entry key="bootstrap.servers" value="118.24.229.84:9092,47.112.124.205:9092,120.79.74.127:9092"/>
                 <entry key="group.id" value="0"/>
-                <entry key="enable.auto.commit" value="false"/> <!--consumer是否自动提交offest到zookeeper-->
+                <entry key="enable.auto.commit" value="true"/> <!--consumer是否自动提交offest到zookeeper-->
                 <entry key="auto.commit.interval.ms" value="1000"/> <!--自动提交的时间间隔-->
                 <entry key="session.timeout.ms" value="15000"/>
+
                 <!--消息是kv形式发送到kafka服务，发送之前需要序列化成二级制类型，消费时反序列化出来，此配置k的序列化类型StringDeserializer-->
                 <entry key="key.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
                 <entry key="value.deserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>

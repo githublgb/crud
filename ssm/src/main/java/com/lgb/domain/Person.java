@@ -1,6 +1,7 @@
 package com.lgb.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Person implements Serializable {
     private Long id;
@@ -22,6 +23,8 @@ public class Person implements Serializable {
     //f分页参数：多少条，当前页码
     private int pageSize;
     private int pageIndex;
+
+    private Date bri;
 
     public Long getId() {
         return id;
@@ -101,6 +104,14 @@ public class Person implements Serializable {
 
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
+    }
+
+    public Date getBri() {
+        return bri;
+    }
+
+    public void setBri(Date bri) {
+        this.bri = bri;
     }
 
     @Override
