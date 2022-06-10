@@ -164,7 +164,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
-            <version>2.5.3</version>
+            <version>2.6.12</version>
             <!--去除引入的spring-->
             <exclusions>
                 <exclusion>
